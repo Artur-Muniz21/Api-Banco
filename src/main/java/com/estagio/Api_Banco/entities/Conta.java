@@ -1,6 +1,7 @@
 package com.estagio.Api_Banco.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,7 +25,7 @@ public class Conta implements Serializable {
 	
 	private String agencia;
 	private String nrConta;
-	private Double saldo;
+	private BigDecimal saldo;
 	
 	@ManyToOne
 	@JoinColumn(name = "usuario_id")
@@ -37,11 +38,10 @@ public class Conta implements Serializable {
 		
 	}
 	
-	public Conta(String agencia, String nrConta, double saldo, Usuario usuario) {
-		super();
+	public Conta(String agencia, String nrConta, Usuario usuario) {
 		this.agencia = agencia;
 		this.nrConta = nrConta;
-		this.saldo = saldo;
+		this.saldo = BigDecimal.ZERO;
 		this.usuario = usuario;
 	}
 
@@ -71,12 +71,20 @@ public class Conta implements Serializable {
 		this.nrConta = nrConta;
 	}
 
-	public Double getSaldo() {
+	public BigDecimal getSaldo() {
 		return saldo;
 	}
 
-	public void setSaldo(Double saldo) {
+	public void setSaldo(BigDecimal saldo) {
 		this.saldo = saldo;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public List<Transferencia> getTransferencia() {

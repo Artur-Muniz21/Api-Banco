@@ -95,6 +95,14 @@ public class Usuario implements Serializable {
 		return conta;
 	}
 
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

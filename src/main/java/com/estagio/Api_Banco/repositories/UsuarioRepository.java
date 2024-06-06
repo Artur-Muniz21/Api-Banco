@@ -8,4 +8,7 @@ import com.estagio.Api_Banco.entities.Usuario;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 
+	public boolean existsByEmail(String email);
+	
+	public boolean existsByCpf(String cpf);
 }

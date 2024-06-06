@@ -34,7 +34,7 @@ public class TestConfig implements CommandLineRunner{
         Usuario user1 = new Usuario("tuka@gmail.com", "12345", "Artur Muniz", "998847867", "1234576788", "comum");
         usuarioRepository.save(user1);
         
-        Conta conta1 = new Conta("38483", "123546", 694948989.34, user1); 
+        Conta conta1 = new Conta("38483", "123546", user1); 
         contaRepository.save(conta1);
         
         Transferencia tranf1 = new Transferencia("Pedro", "Realizada", new Date(), conta1);
