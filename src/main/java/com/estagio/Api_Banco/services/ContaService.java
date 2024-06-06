@@ -1,17 +1,14 @@
 package com.estagio.Api_Banco.services;
 
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.estagio.Api_Banco.entities.Conta;
-import com.estagio.Api_Banco.entities.Usuario;
 import com.estagio.Api_Banco.repositories.ContaRepository;
 import com.estagio.Api_Banco.repositories.UsuarioRepository;
-import com.estagio.Api_Banco.services.exceptions.DatabaseException;
 import com.estagio.Api_Banco.services.exceptions.ResourceNotFound;
 
 @Service
@@ -38,13 +35,32 @@ public class ContaService {
 			throw new ResourceNotFound(usuarioId);
 		}
 			
-		//if validar id do usuario
-		//if conta 12 na agencia 1
+		List<Conta> contas = repository.findByAgencia(conta.getAgencia());
+		
+		boolean nrValido = false;
+		Random random = new Random();
+		String nrConta = null;
+		
+		//garante que seja executado pelo menos uma vez 
+		do {
+			
+			nrConta = String.format("%06d", random.nextInt(1000000));
+			nrValido = true;
+			
+			for(Conta itemConta : contas) {
+				if(itemConta.getNrConta().equals(nrConta)) {
+					nrValido = false;
+					break;
+				}
+			}
+		} while(!nrValido);
+		
+		conta.setNrConta(nrConta);
 		
 		return repository.save(conta);
 	}
 	
-	public Conta update(Long id, Conta conta) {
+/*	public Conta update(Long id, Conta conta) {
 		
 		Conta contaReference = repository.getReferenceById(id);
 		
@@ -58,8 +74,9 @@ public class ContaService {
 		}
 		
 		return repository.save(conta);
-	}
+	}*/
 	
+	/*
 	public void delete(Long id) {
 		try {
 
@@ -76,4 +93,5 @@ public class ContaService {
 
 		}
 	}
+	*/
 }

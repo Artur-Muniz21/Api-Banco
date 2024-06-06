@@ -1,14 +1,14 @@
 package com.estagio.Api_Banco.dto;
 
-public class GetIdUsuario {
+public class GetIdConta {
 
 	private Long id;
 	
-	public GetIdUsuario() {
-
+	public GetIdConta() {
+		
 	}
 
-	public GetIdUsuario(Long id) {
+	public GetIdConta(Long id) {
 		this.id = id;
 	}
 

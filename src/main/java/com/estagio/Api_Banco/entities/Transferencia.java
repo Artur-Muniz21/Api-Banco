@@ -1,6 +1,7 @@
 package com.estagio.Api_Banco.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
@@ -21,9 +22,11 @@ public class Transferencia implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String destinatario;
+	private String AgenciaDestinatario;
+	private String nrContaDestinatario;
 	private String status;
 	private Date data;
+	private BigDecimal valor;
 	
 	@ManyToOne
 	@JoinColumn(name = "conta_id")
@@ -32,13 +35,17 @@ public class Transferencia implements Serializable {
 	public Transferencia() {
 		
 	}
-
-	public Transferencia(String destinatario, String status, Date data, Conta conta) {
-		this.destinatario = destinatario;
-		this.status = status;
-		this.data = data;
+	
+	public Transferencia(String agenciaDestinatario, String nrContaDestinatario, Date data,
+			BigDecimal valor, Conta conta) {
+		AgenciaDestinatario = agenciaDestinatario;
+		this.nrContaDestinatario = nrContaDestinatario;
+		this.data = new Date();
+		this.valor = valor;
 		this.conta = conta;
 	}
+
+
 
 	public Long getId() {
 		return id;
@@ -47,13 +54,29 @@ public class Transferencia implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public String getDestinatario() {
-		return destinatario;
+	
+	public BigDecimal getValor() {
+		return valor;
 	}
 
-	public void setDestinatario(String destinatario) {
-		this.destinatario = destinatario;
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
+	}
+
+	public String getAgenciaDestinatario() {
+		return AgenciaDestinatario;
+	}
+
+	public void setAgenciaDestinatario(String agenciaDestinatario) {
+		AgenciaDestinatario = agenciaDestinatario;
+	}
+
+	public String getNrContaDestinatario() {
+		return nrContaDestinatario;
+	}
+
+	public void setNrContaDestinatario(String nrContaDestinatario) {
+		this.nrContaDestinatario = nrContaDestinatario;
 	}
 
 	public String getStatus() {
@@ -70,6 +93,15 @@ public class Transferencia implements Serializable {
 
 	public void setData(Date data) {
 		this.data = data;
+	}
+	
+
+	public Conta getConta() {
+		return conta;
+	}
+
+	public void setConta(Conta conta) {
+		this.conta = conta;
 	}
 
 	@Override
