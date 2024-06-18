@@ -19,7 +19,6 @@ import com.estagio.Api_Banco.dto.response.TransferenciaResponse;
 import com.estagio.Api_Banco.entities.Conta;
 import com.estagio.Api_Banco.entities.Transferencia;
 import com.estagio.Api_Banco.services.ContaService;
-import com.estagio.Api_Banco.services.EmailSendService;
 import com.estagio.Api_Banco.services.TransferenciaService;
 
 @RestController
@@ -31,9 +30,6 @@ public class TransferenciaResource {
 	
 	@Autowired
 	private ContaService contaService;
-	
-	@Autowired
-	private EmailSendService emailSendService;
 	
 	@GetMapping
 	public ResponseEntity<List<GetTransferencia>> findAll(){
@@ -58,8 +54,6 @@ public class TransferenciaResource {
 		Transferencia transferencia = new Transferencia(postTransferencia.getAgenciaDestinatario(), postTransferencia.getNrContaDestinatario(), postTransferencia.getValor(), conta);
 		transferencia = service.insert(transferencia);
 		TransferenciaResponse transferenciaResponse = new TransferenciaResponse(transferencia);
-		
-		emailSendService.sendEmail(transferencia.getAgenciaDestinatario(), transferencia.getNrContaDestinatario());
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(transferenciaResponse);
 	}

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.estagio.Api_Banco.email.EmailSend;
+import com.estagio.Api_Banco.entities.Conta;
 import com.estagio.Api_Banco.repositories.ContaRepository;
 import com.estagio.Api_Banco.services.exceptions.EmailSendException;
 
@@ -16,14 +17,16 @@ public class EmailSendService {
 	@Autowired
 	public ContaRepository contaRepository;
 	
-	public void sendEmail(String agenciaDestinatario, String nrContaDestinatario) {
+	public void sendEmail(Conta destinatario) {
 		
-		String emailDestinatario = contaRepository.findByAgenciaAndNrConta(agenciaDestinatario, nrContaDestinatario).getUsuario().getEmail();
+		String emailDestinatario = destinatario.getUsuario().getEmail();
 		
 		try {
 			emailSend.sendEmail(emailDestinatario);
+			
 		}catch (Exception e) {
 			throw new EmailSendException(e.getMessage());
+			
 		}
 	}
 }

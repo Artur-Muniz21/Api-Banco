@@ -22,6 +22,9 @@ public class TransferenciaService {
 
 	@Autowired
 	private ContaRepository contaRepository;
+	
+	@Autowired
+	private EmailSendService emailSendService;
 
 	public List<Transferencia> findAll() {
 		return repository.findAll();
@@ -53,6 +56,8 @@ public class TransferenciaService {
 		}
 		
 		Conta destinatario = contaRepository.findByAgenciaAndNrConta(transferencia.getAgenciaDestinatario(), transferencia.getNrContaDestinatario());
+		
+		emailSendService.sendEmail(destinatario);
 		
 		 BigDecimal novoSaldo = transferencia.getConta().getSaldo().subtract(transferencia.getValor());
 		 transferencia.getConta().setSaldo(novoSaldo);
