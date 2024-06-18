@@ -41,6 +41,12 @@ public class TransferenciaResource {
 		return ResponseEntity.ok().body(list);
 	}
 	
+	@GetMapping
+	public ResponseEntity<String> isOk(){
+		
+		return ResponseEntity.ok().body("ok");
+	}
+	
 	@GetMapping("{id}")
 	public ResponseEntity<GetTransferencia> findById(@PathVariable Long id) {
 		return ResponseEntity.ok().body(new GetTransferencia(service.findById(id)));
