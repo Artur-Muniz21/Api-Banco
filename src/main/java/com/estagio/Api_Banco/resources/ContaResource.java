@@ -41,6 +41,12 @@ public class ContaResource {
 		return ResponseEntity.ok().body(list);
 	}
 	
+	@GetMapping
+	public ResponseEntity<String> isOk(){
+		
+		return ResponseEntity.ok().body("ok");
+	}
+	
 	@GetMapping("{id}")
 	public ResponseEntity<GetConta> findById(@PathVariable Long id){
 		return ResponseEntity.ok().body(new GetConta(service.findById(id)));
