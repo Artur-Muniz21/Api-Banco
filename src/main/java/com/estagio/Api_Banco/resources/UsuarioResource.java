@@ -42,6 +42,12 @@ public class UsuarioResource {
 		return ResponseEntity.ok().body(list);
 	}
 	
+	@GetMapping
+	public ResponseEntity<String> isOk(){
+		
+		return ResponseEntity.ok().body("ok");
+	}
+	
 	@GetMapping("{id}")
 	public ResponseEntity<GetUsuarios> findById(@PathVariable Long id){
 		return ResponseEntity.ok().body(new GetUsuarios(service.findById(id)));
