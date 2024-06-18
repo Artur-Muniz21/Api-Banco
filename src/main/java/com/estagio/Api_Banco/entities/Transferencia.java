@@ -36,7 +36,7 @@ public class Transferencia implements Serializable {
 		
 	}
 	
-	public Transferencia(String agenciaDestinatario, String nrContaDestinatario, Date data,
+	public Transferencia(String agenciaDestinatario, String nrContaDestinatario,
 			BigDecimal valor, Conta conta) {
 		AgenciaDestinatario = agenciaDestinatario;
 		this.nrContaDestinatario = nrContaDestinatario;

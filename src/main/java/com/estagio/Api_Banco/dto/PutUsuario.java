@@ -1,6 +1,7 @@
 package com.estagio.Api_Banco.dto;
 
 import com.estagio.Api_Banco.entities.Usuario;
+import com.estagio.Api_Banco.entities.enums.TipoUsuario;
 
 public class PutUsuario {
 
@@ -9,13 +10,13 @@ public class PutUsuario {
 	private String nomeCompleto;
 	private String celular;
 	private String cpf;
-	private String tipo;
+	private TipoUsuario tipo;
 	
 	public PutUsuario() {
 		
 	}
 	
-	public PutUsuario(String email, String senha, String nomeCompleto, String celular, String cpf, String tipo) {
+	public PutUsuario(String email, String senha, String nomeCompleto, String celular, String cpf, TipoUsuario tipo) {
 		this.email = email;
 		this.senha = senha;
 		this.nomeCompleto = nomeCompleto;
@@ -44,7 +45,7 @@ public class PutUsuario {
 		this.cpf = cpf;
 	}
 
-	public void setTipo(String tipo) {
+	public void setTipo(TipoUsuario tipo) {
 		this.tipo = tipo;
 	}
 	

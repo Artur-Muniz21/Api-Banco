@@ -1,13 +1,11 @@
 package com.estagio.Api_Banco.dto;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 public class PostTransferencia {
 
 	private String agenciaDestinatario;
 	private String nrContaDestinatario;
-	private Date data;
 	private BigDecimal valor;
 	private GetIdConta idConta;
 	
@@ -18,7 +16,6 @@ public class PostTransferencia {
 	public PostTransferencia(String agenciaDestinatario, String nrContaDestinatario, BigDecimal valor, GetIdConta idConta) {
 		this.agenciaDestinatario = agenciaDestinatario;
 		this.nrContaDestinatario = nrContaDestinatario;
-		this.data = data;
 		this.valor = valor;
 		this.idConta = idConta;
 	}
@@ -39,14 +36,6 @@ public class PostTransferencia {
 
 	public void setNrContaDestinatario(String nrContaDestinatario) {
 		this.nrContaDestinatario = nrContaDestinatario;
-	}
-
-	public Date getData() {
-		return data;
-	}
-
-	public void setData(Date data) {
-		this.data = data;
 	}
 
 	public BigDecimal getValor() {

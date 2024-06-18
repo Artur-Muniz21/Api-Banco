@@ -4,7 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+import com.estagio.Api_Banco.entities.enums.TipoUsuario;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,7 +29,9 @@ public class Usuario implements Serializable {
 	private String nomeCompleto;
 	private String celular;
 	private String cpf;
-	private String tipo;
+	
+    @Enumerated(EnumType.STRING)
+	private TipoUsuario tipo;
 
 	@OneToMany(mappedBy = "usuario")
 	private List<Conta> conta;
@@ -38,7 +44,7 @@ public class Usuario implements Serializable {
 
 	}
 
-	public Usuario(String email, String senha, String nomeCompleto, String celular, String cpf, String tipo) {
+	public Usuario(String email, String senha, String nomeCompleto, String celular, String cpf, TipoUsuario tipo) {
 		this.email = email;
 		this.senha = senha;
 		this.nomeCompleto = nomeCompleto;
@@ -95,11 +101,11 @@ public class Usuario implements Serializable {
 		return conta;
 	}
 
-	public String getTipo() {
+	public TipoUsuario getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(String tipo) {
+	public void setTipo(TipoUsuario tipo) {
 		this.tipo = tipo;
 	}
 

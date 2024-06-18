@@ -1,21 +1,36 @@
 package com.estagio.Api_Banco.dto;
 
 import com.estagio.Api_Banco.entities.Usuario;
+import com.estagio.Api_Banco.entities.enums.TipoUsuario;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 
 public class PostUsuario {
 
+	@NotBlank(message = "Email obrigatório")
 	private String email;
+	
+	@NotBlank(message = "Senha obrigatória")
 	private String senha;
+	
+	@NotBlank(message = "Nome obrigatório")
 	private String nomeCompleto;
+	
 	private String celular;
+	
+	@NotBlank(message = "CPF obrigatório")
 	private String cpf;
-	private String tipo;
+	
+	@NotNull(message = "Tipo de usuário obrigatório")
+	private TipoUsuario tipo;
 	
 	public PostUsuario() {
 		
 	}
 	
-	public PostUsuario(String email, String senha, String nomeCompleto, String celular, String cpf, String tipo) {
+	public PostUsuario(String email, String senha, String nomeCompleto, String celular, String cpf, TipoUsuario tipo) {
 		this.email = email;
 		this.senha = senha;
 		this.nomeCompleto = nomeCompleto;
@@ -44,7 +59,7 @@ public class PostUsuario {
 		this.cpf = cpf;
 	}
 
-	public void setTipo(String tipo) {
+	public void setTipo(TipoUsuario tipo) {
 		this.tipo = tipo;
 	}
 	

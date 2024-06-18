@@ -1,6 +1,7 @@
 package com.estagio.Api_Banco.dto.response;
 
 import com.estagio.Api_Banco.entities.Usuario;
+import com.estagio.Api_Banco.entities.enums.TipoUsuario;
 
 public class UsuarioResponse {
 
@@ -10,7 +11,7 @@ public class UsuarioResponse {
 	private String nomeCompleto;
 	private String celular;
 	private String cpf;
-	private String tipo;
+	private TipoUsuario tipo;
 	
 	public UsuarioResponse() {
 		
@@ -46,7 +47,7 @@ public class UsuarioResponse {
 		return cpf;
 	}
 
-	public String getTipo() {
+	public TipoUsuario getTipo() {
 		return tipo;
 	}
 }

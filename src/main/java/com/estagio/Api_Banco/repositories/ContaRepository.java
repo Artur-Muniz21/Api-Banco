@@ -9,6 +9,13 @@ import com.estagio.Api_Banco.entities.Conta;
 
 @Repository
 public interface ContaRepository extends JpaRepository<Conta, Long>{
-
+	
 	public List<Conta> findByAgencia(String Agencia);
+	
+	public boolean existsByAgenciaAndNrConta(String agencia, String nrConta);
+	
+	public Conta findByAgenciaAndNrConta(String agencia, String nrConta);
+	
+	public boolean existsById(Long id);
+
 }

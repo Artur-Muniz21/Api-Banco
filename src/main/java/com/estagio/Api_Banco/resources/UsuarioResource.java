@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,8 +22,11 @@ import com.estagio.Api_Banco.dto.response.UsuarioResponse;
 import com.estagio.Api_Banco.entities.Usuario;
 import com.estagio.Api_Banco.services.UsuarioService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/usuarios")
+@Validated
 public class UsuarioResource {
 
 	@Autowired
@@ -44,7 +48,7 @@ public class UsuarioResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<UsuarioResponse> insert(@RequestBody PostUsuario userPost){
+	public ResponseEntity<UsuarioResponse> insert(@Valid @RequestBody PostUsuario userPost){
 		Usuario user = userPost.toUsuario();
 		user = service.insert(user);
 		UsuarioResponse usuarioReponse = new UsuarioResponse(user);
