@@ -18,112 +18,162 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "usuario")
 public class Usuario implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	private String email;
-	private String senha;
-	private String nomeCompleto;
-	private String celular;
-	private String cpf;
-	
+    private String email;
+    private String senha;
+    private String nomeCompleto;
+    private String celular;
+    private String cpf;
+    
     @Enumerated(EnumType.STRING)
-	private TipoUsuario tipo;
+    private TipoUsuario tipo;
 
-	@OneToMany(mappedBy = "usuario")
-	private List<Conta> conta;
-	
-	public Long getId() {
-		return id;
-	}
+    @OneToMany(mappedBy = "usuario")
+    private List<Conta> conta;
+    
+    public Long getId() {
+        return id;
+    }
 
-	public Usuario() {
+    public Usuario() {
+    }
 
-	}
+    public Usuario(String email, String senha, String nomeCompleto, String celular, String cpf, TipoUsuario tipo) {
+        this.email = email;
+        this.senha = senha;
+        this.nomeCompleto = nomeCompleto;
+        this.celular = celular;
+        this.cpf = cpf;
+        this.tipo = tipo;
+    }
 
-	public Usuario(String email, String senha, String nomeCompleto, String celular, String cpf, TipoUsuario tipo) {
-		this.email = email;
-		this.senha = senha;
-		this.nomeCompleto = nomeCompleto;
-		this.celular = celular;
-		this.cpf = cpf;
-		this.tipo = tipo;
-	}
+    private Usuario(Builder builder) {
+        this.email = builder.email;
+        this.senha = builder.senha;
+        this.nomeCompleto = builder.nomeCompleto;
+        this.celular = builder.celular;
+        this.cpf = builder.cpf;
+        this.tipo = builder.tipo;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public static class Builder {
+        private String email;
+        private String senha;
+        private String nomeCompleto;
+        private String celular;
+        private String cpf;
+        private TipoUsuario tipo;
 
-	public String getEmail() {
-		return email;
-	}
+        public Builder email(String email) {
+            this.email = email;
+            return this;
+        }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+        public Builder senha(String senha) {
+            this.senha = senha;
+            return this;
+        }
 
-	public String getSenha() {
-		return senha;
-	}
+        public Builder nomeCompleto(String nomeCompleto) {
+            this.nomeCompleto = nomeCompleto;
+            return this;
+        }
 
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
+        public Builder celular(String celular) {
+            this.celular = celular;
+            return this;
+        }
 
-	public String getNomeCompleto() {
-		return nomeCompleto;
-	}
+        public Builder cpf(String cpf) {
+            this.cpf = cpf;
+            return this;
+        }
 
-	public void setNomeCompleto(String nomeCompleto) {
-		this.nomeCompleto = nomeCompleto;
-	}
+        public Builder tipo(TipoUsuario tipo) {
+            this.tipo = tipo;
+            return this;
+        }
 
-	public String getCelular() {
-		return celular;
-	}
+        public Usuario build() {
+            return new Usuario(this);
+        }
+    }
 
-	public void setCelular(String celular) {
-		this.celular = celular;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getCpf() {
-		return cpf;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public List<Conta> getConta() {
-		return conta;
-	}
+    public String getSenha() {
+        return senha;
+    }
 
-	public TipoUsuario getTipo() {
-		return tipo;
-	}
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 
-	public void setTipo(TipoUsuario tipo) {
-		this.tipo = tipo;
-	}
+    public String getNomeCompleto() {
+        return nomeCompleto;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
+    public void setNomeCompleto(String nomeCompleto) {
+        this.nomeCompleto = nomeCompleto;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Usuario other = (Usuario) obj;
-		return Objects.equals(id, other.id);
-	}
+    public String getCelular() {
+        return celular;
+    }
 
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public List<Conta> getConta() {
+        return conta;
+    }
+
+    public TipoUsuario getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoUsuario tipo) {
+        this.tipo = tipo;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Usuario other = (Usuario) obj;
+        return Objects.equals(id, other.id);
+    }
 }

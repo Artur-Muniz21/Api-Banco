@@ -25,40 +25,31 @@ import com.estagio.Api_Banco.services.UsuarioService;
 @RequestMapping(value = "/contas")
 public class ContaResource {
 
-	@Autowired
-	private ContaService service;
-	
-	@Autowired
-	private UsuarioService usuarioService;
-	
-	@GetMapping
-	public ResponseEntity<List<GetConta>> findAll(){
-		
-		List<GetConta> list = service.findAll().stream()
-				.map(GetConta :: new)	
-				.collect(Collectors.toList());
-		
-		return ResponseEntity.ok().body(list);
-	}
-	
-	@GetMapping
-	public ResponseEntity<String> isOk(){
-		
-		return ResponseEntity.ok().body("ok");
-	}
-	
-	@GetMapping("{id}")
-	public ResponseEntity<GetConta> findById(@PathVariable Long id){
-		return ResponseEntity.ok().body(new GetConta(service.findById(id)));
-	}
-	
-	@PostMapping
-	public ResponseEntity<ContaResponse> insert(@RequestBody PostConta postConta){
-		Usuario usuario = usuarioService.findById(postConta.getIdUsuario().getId());
-	
-		Conta conta = new Conta(postConta.getAgencia(), null, usuario);
-		conta = service.insert(conta);
-		ContaResponse contaResponse = new ContaResponse(conta);
-		return ResponseEntity.status(HttpStatus.CREATED).body(contaResponse);
-	}
+    @Autowired
+    private ContaService service;
+
+    @Autowired
+    private UsuarioService usuarioService;
+
+    @GetMapping
+    public ResponseEntity<List<GetConta>> findAll() {
+        List<GetConta> list = service.findAll().stream()
+                .map(GetConta::new)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<GetConta> findById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(new GetConta(service.findById(id)));
+    }
+
+    @PostMapping
+    public ResponseEntity<ContaResponse> insert(@RequestBody PostConta postConta) {
+        Usuario usuario = usuarioService.findById(postConta.getIdUsuario().getId());
+        Conta conta = new Conta(postConta.getAgencia(), null, usuario);
+        conta = service.insert(conta);
+        ContaResponse contaResponse = new ContaResponse(conta);
+        return ResponseEntity.status(HttpStatus.CREATED).body(contaResponse);
+    }
 }
