@@ -1,14 +1,18 @@
 package com.estagio.Api_Banco.services;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.estagio.Api_Banco.entities.Usuario;
+import com.estagio.Api_Banco.entities.enums.TipoUsuario;
+import com.estagio.Api_Banco.entities.specification.UsuarioSpecification;
 import com.estagio.Api_Banco.repositories.UsuarioRepository;
 import com.estagio.Api_Banco.services.exceptions.DatabaseException;
 import com.estagio.Api_Banco.services.exceptions.ResourceNotFound;
@@ -22,8 +26,14 @@ public class UsuarioService {
 	@Autowired
 	private PasswordEncoder encoder;
 
-	public List<Usuario> findAll() {
-		return repository.findAll();
+	public List<Usuario> findAll(TipoUsuario tipoUsuario) {
+	    Specification<Usuario> specification = Specification.where(null);
+	    
+	    if (Objects.nonNull(tipoUsuario)) {
+	        specification = specification.and(UsuarioSpecification.tipoUsuarioIgual(tipoUsuario));
+	    }
+	    
+	    return repository.findAll(specification);
 	}
 
 	public Usuario findById(Long id) {

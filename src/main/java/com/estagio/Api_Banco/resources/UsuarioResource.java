@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.estagio.Api_Banco.dto.GetUsuarios;
@@ -20,6 +21,7 @@ import com.estagio.Api_Banco.dto.PostUsuario;
 import com.estagio.Api_Banco.dto.PutUsuario;
 import com.estagio.Api_Banco.dto.response.UsuarioResponse;
 import com.estagio.Api_Banco.entities.Usuario;
+import com.estagio.Api_Banco.entities.enums.TipoUsuario;
 import com.estagio.Api_Banco.services.UsuarioService;
 
 import jakarta.validation.Valid;
@@ -32,21 +34,13 @@ public class UsuarioResource {
 	@Autowired
 	private UsuarioService service;
 	
-	@GetMapping
-	public ResponseEntity<List<GetUsuarios>> findAll(){
-		
-		List<GetUsuarios> list = service.findAll().stream()
-				.map(GetUsuarios::new)
-				.collect(Collectors.toList());
-		
-		return ResponseEntity.ok().body(list);
-	}
-	
-	@GetMapping
-	public ResponseEntity<String> isOk(){
-		
-		return ResponseEntity.ok().body("ok");
-	}
+    @GetMapping
+    public ResponseEntity<List<GetUsuarios>> findAll(@RequestParam(required = false) TipoUsuario tipoUsuario) {
+        List<GetUsuarios> list = service.findAll(tipoUsuario).stream()
+                .map(GetUsuarios::new)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok().body(list);
+    }
 	
 	@GetMapping("{id}")
 	public ResponseEntity<GetUsuarios> findById(@PathVariable Long id){
